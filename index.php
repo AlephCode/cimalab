@@ -3,10 +3,17 @@
 include "config.php";
 
 //Controllers
-require_once "controllers/template_controller.php";
+require_once "controllers/controller_template.php";
+require_once "controllers/controller_dashboard.php";
 
 //Models
+require_once "models/model_dashboard.php";
+
+
+//VENDOR
 require_once "vendor/autoload.php";
+
+$url = TemplateController::getUrlController();
 
 $login_button = '';
 
@@ -62,6 +69,8 @@ if(!isset($_SESSION['access_token'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CimaLAb</title>
+    <!--  JQuery  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap 5 -->
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -88,7 +97,8 @@ if($login_button == ''){
 
 ?>
 
-
+<!--Customizable-->
+<script src="http://localhost/cimalab/views/assets/js/scripts/dashboard.js?'"></script>
 </body>
 </html>
 
