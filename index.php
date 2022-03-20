@@ -22,6 +22,7 @@ if(isset($_GET['code'])){
     $token = $google_client->fetchAccessTokenWithAuthCode($_GET['code']);
 
     if(!isset($token['error'])){
+
         $google_client-> setAccessToken($token['access_token']);
         $_SESSION['access_token'] = $token['access_token'];
 
@@ -69,16 +70,19 @@ if(!isset($_SESSION['access_token'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CimaLAb</title>
-    <!--  JQuery  -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Bootstrap 5 -->
+
+    <!-- Bootstrap 5-->
+
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!--    Bootstrap JS    -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FONT AWESOME   -->
-    <script src="https://kit.fontawesome.com/18f8cc7063.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--   ESTILOS PERSONALIZADOS     -->
     <link rel="stylesheet" type="text/css" href="views/assets/css/style.css">
 
@@ -99,6 +103,9 @@ if($login_button == ''){
 
 <!--Customizable-->
 <script src="http://localhost/cimalab/views/assets/js/scripts/dashboard.js?'"></script>
+<script src="http://localhost/cimalab/views/assets/js/scripts/general.js?'"></script>
+<!-- JQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </body>
 </html>
 

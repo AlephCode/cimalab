@@ -1,11 +1,13 @@
 <?php
 
     $lab = DashboardController::getLabController();
+//    $lab_users = DashboardController::getLabUsersController();
 //    var_dump($lab);
 ?>
 
-<!--HEADER-->
+
 <div>
+    <!--HEADER-->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
         <div class="container-fluid">
@@ -56,9 +58,17 @@
                         <h3 class="heading">Laboratorio<br><?php echo $value["name"]?></h3>
                         <div class="mt-5">
                             <div class="progress">
-                                <div class="progress-bar progress-bar<?php echo ($key+1)?>" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar<?php echo ($key+1)?>" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
-                            <div class="mt-3"> <span class="text1 lab-amount" value="<?php echo $value["amount"]?>"><?php echo $value["amount"]?> Alumnos <span class="text2">de 7 de capacidad</span></span> </div>
+                            <div class="d-flex justify-content-between px-1">
+                                <div class="mt-3"> <span class="text1 lab-amount" value="<?php echo $value["amount"]?>"><?php echo $value["amount"]?> Alumnos <span class="text2">de 7 de capacidad</span></span> </div>
+                                <div type="button" data-target="#lab_users_modal" class="mt-3 btn btn-warning card_userList" data-toggle="modal"  value="<?php echo $value['id']?>"><i class="fa-solid fa-eye"></i></div>
+                                <?php
+                                    if(!$_SESSION["IsOnLab"]){
+                                        echo "<div class='mt-3 btn btn-primary card_userAdd'  email='".$_SESSION["user_email_adress"]."' value='".$value['id']."'>Entrar</div>";
+                                    }
+                                ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,3 +81,21 @@
 
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="lab_users_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Alumnos en laboratorio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-usersList"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
