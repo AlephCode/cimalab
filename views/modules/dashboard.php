@@ -29,7 +29,7 @@
                     <a class="nav-item nav-link"><?php echo $_SESSION['user_first_name'].' '.$_SESSION['user_last_name']; ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link" href="views/modules/logout.php">Logout</a>
+                    <a class="nav-item nav-link" href="views/modules/logout.php">Cerrar Sesión</a>
                 </li>
             </ul>
         </div>
@@ -47,7 +47,7 @@
                 <div class="card p-3 mb-2">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex flex-row align-items-center">
-                            <div class="icon"> <i class="bx bxl-mailchimp"></i> </div>
+                            <div class="icon"> <i class="fa-solid fa-flask"></i> </div>
                             <div class="ms-2 c-details">
                                 <h6 class="mb-0">Laboratorio</h6> <span>No.<?php echo ($key+1)?></span>
                             </div>

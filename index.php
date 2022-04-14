@@ -49,6 +49,12 @@ if(isset($_GET['code'])){
             $_SESSION['user_image'] = $data['picture'];
         }
 
+        //ROLES
+        if($_SESSION['user_email_adress'] == "a1164895@uabc.edu.mx"){
+            $_SESSION['rol'] = "admin";
+        }else{
+            $_SESSION['rol'] = "user";
+        }
     }
 
 }
@@ -95,6 +101,8 @@ if(!isset($_SESSION['access_token'])){
 
 if($login_button == ''){
     include "views/modules/dashboard.php";
+    if($_SESSION['rol'] == 'admin')
+        include "views/modules/admin_view.php";
 }else{
     include "views/modules/login.php";
 }
@@ -104,8 +112,12 @@ if($login_button == ''){
 <!--Customizable-->
 <script src="http://localhost/cimalab/views/assets/js/scripts/dashboard.js?'"></script>
 <script src="http://localhost/cimalab/views/assets/js/scripts/general.js?'"></script>
+<script src="http://localhost/cimalab/views/assets/js/scripts/admin_view.js?'"></script>
+
+
 <!-- JQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
 </body>
 </html>
 
