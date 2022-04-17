@@ -5,10 +5,11 @@ include "config.php";
 //Controllers
 require_once "controllers/controller_template.php";
 require_once "controllers/controller_dashboard.php";
+require_once "controllers/controller_admin_view.php";
 
 //Models
 require_once "models/model_dashboard.php";
-
+require_once "models/model_admin_view.php";
 
 //VENDOR
 require_once "vendor/autoload.php";
