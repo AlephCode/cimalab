@@ -3,15 +3,18 @@ $(document).ready(function (){
     let i=0;
 
     $('.lab-amount').each(function (){
+
         i++;
-        let amount = $(this).attr('value');
+        let amount = parseInt($(this).attr('value'));
         let spanValue = $('.span-status'+i);
         let progressBar = $('.progress-bar'+i);
+        let limit =   parseInt($('.hidden_limit'+i).val());
 
-        let percent = amount / 7 * 100;
+        let percent = amount / limit * 100;
         progressBar.css('width',percent + '%');
 
-        if(amount == 7){
+        console.log(typeof amount );
+        if(amount >= limit){
             spanValue.html('Lleno');
             spanValue.css("background-color","#f5c6cb");
             spanValue.css("color","#721c24");

@@ -16,6 +16,7 @@ $(document).on("click",".submit-lab_add",function () {
         contentType: false,
         processData: false,
         success:function (request){
+            console.log(request);
             alert("Se agrego");
         }
 

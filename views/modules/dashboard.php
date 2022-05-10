@@ -1,6 +1,7 @@
 <?php
-
+//Trae los laboratorios al dashboard
     $lab = DashboardController::getLabController();
+//    print_r($lab);
 //    $lab_users = DashboardController::getLabUsersController();
 //    var_dump($lab);
 ?>
@@ -52,7 +53,7 @@
                                 <h6 class="mb-0">Laboratorio</h6> <span>No.<?php echo ($key+1)?></span>
                             </div>
                         </div>
-                        <div class="badge"> <span value="" class="span-status<?php echo ($key+1)?>" status="<?php echo $value['status']?>"></span> </div>
+                        <div class="badge"> <span value="" class="span-status<?php echo ($key+1)?>"></span> </div>
                     </div>
                     <div class="mt-5">
                         <h3 class="heading">Laboratorio<br><?php echo $value["name"]?></h3>
@@ -61,7 +62,12 @@
                                 <div class="progress-bar<?php echo ($key+1)?>" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <div class="d-flex justify-content-between px-1">
-                                <div class="mt-3"> <span class="text1 lab-amount" value="<?php echo $value["amount"]?>"><?php echo $value["amount"]?> Alumnos <span class="text2">de 7 de capacidad</span></span> </div>
+                                <div class="mt-3">
+                                    <span class="text1 lab-amount" value="<?php echo $value["amount"]?>"><?php echo $value["amount"]?> Alumnos
+                                        <span class="text2">de <?php echo $value["max"] ?> de capacidad</span>
+                                        <input class="hidden_limit<?php echo ($key+1)?>" type="hidden" value="<?php echo $value["max"]?>">
+                                    </span>
+                                </div>
                                 <div type="button" data-target="#lab_users_modal" class="mt-3 btn btn-warning card_userList" data-toggle="modal"  value="<?php echo $value['id']?>"><i class="fa-solid fa-eye"></i></div>
                                 <?php
                                     if(!$_SESSION["IsOnLab"]){
