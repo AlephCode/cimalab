@@ -50,11 +50,11 @@ $(document).on('click','.card_userList',function (){
 
             let x = JSON.parse(request);
 
-            let email = x.email;
+            let email = x.matricula;
             let chainEmails = "";
             for (let i = 0; i < x.length ; i++){
                 console.log(x[i].email);
-                chainEmails += x[i].email + "<br>";
+                chainEmails += x[i].matricula + "<br>";
             }
 
             $("#modal-usersList").html(chainEmails);
