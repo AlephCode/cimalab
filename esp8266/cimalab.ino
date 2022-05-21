@@ -4,17 +4,26 @@
 //-------------------VARIABLES GLOBALES--------------------------
 int contconexion = 0;
 
-const char *ssid = "INFINITUM5u5m";
-const char *password = "301ce5aabf";
+//const char *ssid = "INFINITUM5u5m";
+//const char *password = "301ce5aabf";
+
+
+const char *ssid = "RedNoDisponible2.4";
+const char *password = "FAA53462t5FGe259";
 
 unsigned long previousMillis = 0;
 
 char host[48];
-String strhost = "192.168.1.252";
+//String strhost = "192.168.1.252";
+String strhost = "192.168.100.21";
 String strurl = "/cimalab/models/esp8266_connection.php";
 String chipid = "";
+//----------------VARIABLES LABORATORIO--------------------------
 
-//-------Función para Enviar Datos a la Base de Datos SQL--------
+const int id_laboratory = 3;
+const int matricula = 1165438;
+
+//-------Función para Enviar Datos a la Base de Datos MySQL--------
 
 String enviardatos(String datos) {
   String linea = "error";
@@ -43,7 +52,7 @@ String enviardatos(String datos) {
       return linea;
     }
   }
-  // Lee todas las lineas que recibe del servidro y las imprime por la terminal serial
+  // Lee todas las lineas que recibe del servidor y las imprime por la terminal serial
   while(client.available()){
     linea = client.readStringUntil('\r');
   }  
@@ -70,21 +79,24 @@ void setup() {
     delay(500);
     Serial.print(".");
   }
-  if (contconexion <50) {
-      //para usar con ip fija
-      IPAddress ip(192,168,1,156); 
-      IPAddress gateway(192,168,1,1); 
-      IPAddress subnet(255,255,255,0); 
-      WiFi.config(ip, gateway, subnet); 
-      
-      Serial.println("");
-      Serial.println("WiFi conectado");
-      Serial.println(WiFi.localIP());
-  }
-  else { 
-      Serial.println("");
-      Serial.println("Error de conexion");
-  }
+  Serial.println(WiFi.localIP());
+
+  //Comente esto con tentativa de volverse a implementar al configurar una servidor con IP Fija.
+//  if (contconexion <50) {
+//      //para usar con ip fija
+//      IPAddress ip(192,168,2,156); 
+//      IPAddress gateway(192,168,2,1); 
+//      IPAddress subnet(255,255,255,0); 
+//      WiFi.config(ip, gateway, subnet);
+//      
+//      Serial.println("");
+//      Serial.println("WiFi conectado");
+//      Serial.println(WiFi.localIP());
+//  }
+//  else { 
+//      Serial.println("");
+//      Serial.println("Error de conexion");
+//  }
 }
 
 //--------------------------LOOP--------------------------------
@@ -92,11 +104,10 @@ void loop() {
 
   unsigned long currentMillis = millis();
 
-  if (currentMillis - previousMillis >= 10000) { //envia la temperatura cada 10 segundos
+  if (currentMillis - previousMillis >= 10000) { //Envia los datos cada 10 segundos
     previousMillis = currentMillis;
-    int analog = analogRead(17);
-    float temp = analog*0.322265625;
-    Serial.println(temp);
-    enviardatos("chipid=" + chipid + "&temperatura=" + String(temp, 2));
+    enviardatos("chipid=" + chipid + "&id_laboratory=" + id_laboratory + "&matricula=" + matricula);
   }
+
+  
 }
