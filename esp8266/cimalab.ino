@@ -1,12 +1,20 @@
+//Librerias correspondientes a la conexion wifi
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h> 
+//Libreria para el SoftSerial
+#include "SoftwareSerial.h"
+//Libreria de Sensor DE2120
+#include "SparkFun_DE2120_Arduino_Library.h" //Click here to get the library: http://librarymanager/All#SparkFun_DE2120
+#define BUFFER_LEN 40 //Longitud de la cadena que almacenara el codigo
 
-//-------------------VARIABLES GLOBALES--------------------------
+//----------------VARIABLES PARA EL DE2120-----------------------
+DE2120 scanner;//Objeto principal para manipular el DE2120 
+
+char scanBuffer[BUFFER_LEN]; //Cadena que almacena el codigo
+SoftwareSerial softSerial(2, 16); //RX, TX: pin 2 corresponde al D4 que se conecta a TX del DE2120 y pin 16 corresponde al D0 que se conecta al RX del DE2120 
+
+//-------------------VARIABLES PARA WIFI--------------------------
 int contconexion = 0;
-
-//const char *ssid = "INFINITUM5u5m";
-//const char *password = "301ce5aabf";
-
 
 const char *ssid = "RedNoDisponible2.4";
 const char *password = "FAA53462t5FGe259";
@@ -14,14 +22,13 @@ const char *password = "FAA53462t5FGe259";
 unsigned long previousMillis = 0;
 
 char host[48];
-//String strhost = "192.168.1.252";
 String strhost = "192.168.100.21";
 String strurl = "/cimalab/models/esp8266_connection.php";
 String chipid = "";
 //----------------VARIABLES LABORATORIO--------------------------
-
+int j=0;
 const int id_laboratory = 3;
-const int matricula = 1165438;
+char matricula[BUFFER_LEN];
 
 //-------Función para Enviar Datos a la Base de Datos MySQL--------
 
@@ -60,19 +67,31 @@ String enviardatos(String datos) {
   return linea;
 }
 
-//-------------------------------------------------------------------------
-
 void setup() {
-
-  // Inicia Serial
+  
+// Inicia Serial
   Serial.begin(115200);
   Serial.println("");
 
-  Serial.print("chipId: "); 
+  Serial.print("chipId: "); //Identifico el ESP8266
   chipid = String(ESP.getChipId());
   Serial.println(chipid); 
+  
+//-----COMPRUEBO EL CORRECTO FUNCIONAMIENTO DEL DE2120--------------
+  Serial.println("DE2120 Scanner Example");
 
-  // Conexión WIFI
+  if (scanner.begin(softSerial) == false)
+  {
+    Serial.println("Scanner did not respond. Please check wiring. Did you scan the POR232 barcode? Freezing...");
+    while (1)
+      ;
+  }
+  Serial.println("Scanner online!");
+
+//------------------END---------------------------
+  
+
+//----COMPRUEBO QUE LA CONEXION AL WIFI ES SATISFACTORIA----------------
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED and contconexion <50) { //Cuenta hasta 50 si no se puede conectar lo cancela
     ++contconexion;
@@ -80,8 +99,9 @@ void setup() {
     Serial.print(".");
   }
   Serial.println(WiFi.localIP());
+//---------------END----------------------------
 
-  //Comente esto con tentativa de volverse a implementar al configurar una servidor con IP Fija.
+//Comente esto con tentativa de volverse a implementar al configurar una servidor con IP Fija.
 //  if (contconexion <50) {
 //      //para usar con ip fija
 //      IPAddress ip(192,168,2,156); 
@@ -101,13 +121,29 @@ void setup() {
 
 //--------------------------LOOP--------------------------------
 void loop() {
-
-  unsigned long currentMillis = millis();
-
-  if (currentMillis - previousMillis >= 10000) { //Envia los datos cada 10 segundos
-    previousMillis = currentMillis;
+  
+  if(j++ == 0)Serial.println("Listo");
+  
+  if (scanner.readBarcode(scanBuffer, BUFFER_LEN) && strlen(scanBuffer) == 11)
+  {
+    Serial.print("Code found: ");
+    for (int i = 0; i < strlen(scanBuffer); i++){
+      Serial.print(scanBuffer[i]);
+      matricula[i] = scanBuffer[i];
+    }
+      
+    Serial.println();
     enviardatos("chipid=" + chipid + "&id_laboratory=" + id_laboratory + "&matricula=" + matricula);
   }
+
+  delay(500);
+
+//  unsigned long currentMillis = millis();
+
+//  if (currentMillis - previousMillis >= 10000) { //Envia los datos cada 10 segundos
+//    previousMillis = currentMillis;
+//    enviardatos("chipid=" + chipid + "&id_laboratory=" + id_laboratory + "&matricula=" + matricula);
+//  }
 
   
 }
