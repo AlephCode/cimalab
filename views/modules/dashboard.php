@@ -98,7 +98,34 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="modal-usersList"></div>
+            <div class="modal-body">
+
+                <div class="table-responsive">
+                    <table class="table dataTable" id="">
+                        <thead>
+                        <tr>
+
+                            <th>Matrícula</th>
+                            <th>Hora</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td id="modal-usersList-matricula"></td>
+                                <td id="modal-usersList-time"></td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>

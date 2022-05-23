@@ -51,13 +51,19 @@ $(document).on('click','.card_userList',function (){
             let x = JSON.parse(request);
 
             let email = x.matricula;
+            let time = x.time;
+
             let chainEmails = "";
             for (let i = 0; i < x.length ; i++){
-                console.log(x[i].email);
-                chainEmails += x[i].matricula + "<br>";
+                chainEmails += x[i].matricula +  "<br>";
+            }
+            let chainTime = "";
+            for (let i = 0; i < x.length ; i++){
+                chainTime += x[i].time +  "<br>";
             }
 
-            $("#modal-usersList").html(chainEmails);
+            $("#modal-usersList-matricula").html(chainEmails);
+            $("#modal-usersList-time").html(chainTime);
 
         }
     });

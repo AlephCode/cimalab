@@ -5,6 +5,7 @@ $id_laboratory = $_POST['id_laboratory'];
 $chipid = $_POST ['chipid'];
 $matricula = $_POST['matricula'];
 
+
 //Inserta el chipID del ESP8266, la matricula del alumno
 // y el id del laboratorio correspondiente en la tabla laboratories_users,
 // aqui se hace la relacion entre el laboratory y laboratories_users*/

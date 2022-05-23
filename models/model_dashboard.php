@@ -12,7 +12,7 @@ class DashboardModel{
 
     public static function getLabUsersModel($id){
 
-        $stmt = Conexion::connect()->prepare("SELECT matricula FROM laboratories_users WHERE id_laboratory=:id");
+        $stmt = Conexion::connect()->prepare("SELECT *, DATE_FORMAT(time,'%h:%i') AS time FROM laboratories_users WHERE id_laboratory=:id");
 
         $stmt->bindParam(":id",$id,PDO::PARAM_STR);
 
