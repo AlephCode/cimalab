@@ -4,8 +4,8 @@
 //    print_r($lab);
 //    $lab_users = DashboardController::getLabUsersController();
 //    var_dump($lab);
-?>
 
+?>
 
 <div>
     <!--HEADER-->
@@ -37,7 +37,7 @@
 
     </nav>
 
-<!--CARDS DE LABORATORIOS-->
+    <!--CARDS DE LABORATORIOS-->
     <div class="container mt-5 mb-3">
         <div class="row">
 
@@ -125,9 +125,14 @@
 
             </div>
             <div class="modal-footer">
-                <a href="/cimalab/views/modules/report.php" class="btn btn-info"><i class="fas fa-print"></i></a>
+                <a href="/cimalab/views/modules/report.php" class="btn btn-danger float-start"><i class="fas fa-print"></i>.pdf</a>
+                <a href="/cimalab/views/modules/excel_report.php" class="btn btn-success float-start"><i class="fas fa-print"></i>.xlsx</a>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
+
 </div>
+
+
+

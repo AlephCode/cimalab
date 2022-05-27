@@ -1,11 +1,12 @@
 <?php
-//Google Auth Config
+//Google Auth Config and dependencies from Composer
 include "config.php";
 
 //Controllers
 require_once "controllers/controller_template.php";
 require_once "controllers/controller_dashboard.php";
 require_once "controllers/controller_admin_view.php";
+
 
 //Models
 require_once "models/model_dashboard.php";
@@ -94,7 +95,7 @@ if(!isset($_SESSION['access_token'])){
     <link rel="stylesheet" type="text/css" href="views/assets/css/style.css">
 
 </head>
-<body>
+<body onload = "table();">
 
 <input type="hidden" class="url" value="<?php echo $url?>">
 

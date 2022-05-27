@@ -4,8 +4,6 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-
-
 //--------------Librerias correspondientes a la conexion wifi-----------------
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h> 
@@ -184,15 +182,6 @@ void setup() {
   display.display(); // Show the display buffer on the screen
   delay(2000);        // Pause for 2 seconds
 
-  // Show initial display buffer contents on the screen --
-  // the library initializes this with an Adafruit splash screen.
-//  display.display();
-//  delay(2000); // Pause for 2 seconds
-
-  // Clear the buffer
-  display.clearDisplay();
-
-
 //  testdrawstyles();    // Draw 'stylized' characters
 
 
@@ -210,10 +199,10 @@ void setup() {
       ;
   }
   Serial.println("Scanner online!");
+  
 
 //------------------END---------------------------
   
-
 //----COMPRUEBO QUE LA CONEXION AL WIFI ES SATISFACTORIA----------------
   Serial.print("Conectandose al WIFI");
   WiFi.begin(ssid, password);
@@ -223,7 +212,9 @@ void setup() {
     Serial.print(".");
   }
 //  Serial.println(WiFi.localIP());
-  Serial.println("WIFI CONECTADO!");
+  Serial.println("ONLINE!");
+  printDisplay("ONLINE!");
+  
 
 //---------------END----------------------------
 
@@ -248,7 +239,10 @@ void setup() {
 //--------------------------LOOP--------------------------------
 void loop() {
   
-  if(j++ == 0)Serial.println("TODO LISTO!");
+  if(j++ == 0){
+    Serial.println("PREPARADO!");
+    printDisplay("PREPARADO!");
+  }
   
   if (scanner.readBarcode(scanBuffer, BUFFER_LEN) && strlen(scanBuffer) == 11)
   {
@@ -282,6 +276,17 @@ String printMatricula(String matricula){
   display.setTextColor(SSD1306_WHITE);        // Draw white text
   display.setCursor(0,20);             // Start at top-left corner
   display.println((matricula));
+  display.display();
+  delay(2000);
+}
+
+void printDisplay(String text){
+  
+  display.clearDisplay();
+  display.setTextSize(2);             // Normal 1:1 pixel scale
+  display.setTextColor(SSD1306_WHITE);        // Draw white text
+  display.setCursor(0,20);             // Start at top-left corner
+  display.print(text);
   display.display();
   delay(2000);
 }
