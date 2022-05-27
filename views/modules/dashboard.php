@@ -101,7 +101,7 @@
             <div class="modal-body">
 
                 <div class="table-responsive">
-                    <table class="table dataTable" id="">
+                    <table class="table" id="">
                         <thead class="thead-dark" >
                         <tr>
                             <th>Matrícula</th>
@@ -125,7 +125,7 @@
 
             </div>
             <div class="modal-footer">
-                <a href="/cimalab/views/modules/report.php" class="btn btn-info"><i class="fa-solid fa-print"></i></a>
+                <a href="/cimalab/views/modules/report.php" class="btn btn-info"><i class="fas fa-print"></i></a>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>

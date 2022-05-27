@@ -27,14 +27,19 @@ ob_start()
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
+<!--    HEADER DEL DOCUMENTO-->
+
     <div class="row">
+
         <div class="col">
             Laboratorio: PECERA
         </div>
-
-        <img src="http://localhost/cimalab/views/assets/img/navbar_logo.png" alt="logo_uabc" class="img-thumbnail" width="100">
-
+        <div class="col">
+            <img src="http://localhost/cimalab/views/assets/img/navbar_logo.png" alt="logo_uabc" class="float-right" width="100">
+        </div>
     </div>
+
+<br><br><br>
     <div class="table-responsive">
         <table class="table table-striped" id="">
             <thead class="thead-dark">
