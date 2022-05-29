@@ -95,7 +95,7 @@ if(!isset($_SESSION['access_token'])){
     <link rel="stylesheet" type="text/css" href="views/assets/css/style.css">
 
 </head>
-<body onload = "table();">
+<body>
 
 <input type="hidden" class="url" value="<?php echo $url?>">
 
@@ -103,6 +103,7 @@ if(!isset($_SESSION['access_token'])){
 
 if($login_button == ''){
     include "views/modules/dashboard.php";
+    include "views/modules/cards.php";
     if($_SESSION['rol'] == 'admin')
         include "views/modules/admin_view.php";
 }else{
