@@ -8,7 +8,7 @@
         mouseOnmove = true;
         timeout = setTimeout(function(){
         mouseOnmove = false;
-        }, 300);
+        }, 3000);
 
     }
 

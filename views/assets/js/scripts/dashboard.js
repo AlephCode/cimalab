@@ -18,7 +18,12 @@ $(document).on('click','.card_userList',function (){
         contentType: false,
         processData: false,
         success:function (request){
-            // console.log(request);
+
+            // const tiempoTranscurrido = Date.now();
+            // const hoy = new Date(tiempoTranscurrido);
+            // console.log(hoy.toDateString()); // "Sun Jun 14 2020");
+            // console.log(x[0].time);
+
 
             let x = JSON.parse(request);
 
@@ -31,7 +36,7 @@ $(document).on('click','.card_userList',function (){
             }
             let chainTime = "";
             for (let i = 0; i < x.length ; i++){
-                chainTime += x[i].time +  "<br>";
+                chainTime += x[i].time.substring(0,5) +  "<br>";
             }
 
             $("#modal-usersList-matricula").html(chainEmails);

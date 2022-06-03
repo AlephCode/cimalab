@@ -101,19 +101,22 @@ static const unsigned char PROGMEM image[] = {
 
 //-------------------VARIABLES PARA WIFI--------------------------
 int contconexion = 0;
-
-const char *ssid = "RedNoDisponible2.4";
-const char *password = "FAA53462t5FGe259";
+//
+//const char *ssid = "RedNoDisponible2.4";
+//const char *password = "FAA53462t5FGe259";
 
 //const char *ssid = "FIM_Alumnos";
 //const char *password = "ingenieria";
 
+const char *ssid = "iPhone";
+const char *password = "78657418";
+
 unsigned long previousMillis = 0;
 
 char host[48];
-String strhost = "192.168.100.21";
+//String strhost = "192.168.100.21";
 //String strhost = "10.30.54.90";
-
+String strhost = "172.20.10.4";
 String strurl = "/cimalab/models/esp8266_connection.php";
 String chipid = "";
 //----------------VARIABLES LABORATORIO--------------------------
@@ -142,24 +145,40 @@ String enviardatos(String datos) {
                "Content-Type: application/x-www-form-urlencoded" + "\r\n" +
                "\r\n" + datos);           
   delay(10);             
-  
-  Serial.print("Enviando datos a SQL...");
 
-  //Validaciones desactivadas de momento para mejorar la rapidez de la subida de datos a la base de datos
+   //Validaciones desactivadas de momento para mejorar la rapidez de la subida de datos a la base de datos
   //Estos tambios son tentativos a cambiarse por una subida mas optima
-//  unsigned long timeout = millis();
-//  while (client.available() == 0) {
-//    if (millis() - timeout > 5000) {
-//      Serial.println("Cliente fuera de tiempo!");
-//      client.stop();
-//      return linea;
-//    }
-//  }
-//  // Lee todas las lineas que recibe del servidor y las imprime por la terminal serial
-//  while(client.available()){
-//    linea = client.readStringUntil('\r');
-//  }  
-//  Serial.println(linea);
+  Serial.print("Enviando datos a SQL...");
+  unsigned long timeout = millis();
+  while (client.available() == 0) {
+    display.setTextSize(1);     
+    printDisplay("Validando...");
+    if (millis() - timeout > 5000) {
+      Serial.println("Cliente fuera de tiempo!");
+      client.stop();
+      return linea;
+    }
+  }
+
+//   Lee todas las lineas que recibe del servidor y las imprime por la terminal serial
+  while(client.available()){
+    linea = client.readStringUntil('\r');
+  }  
+
+Serial.println("Se han enviado los datos con exito.");
+  
+  if(linea.length() < 5){
+    Serial.println("Estas Dentro");
+    display.setTextSize(1);     
+    printDisplay("Ingresaste");
+    delay(1000);
+  }else{
+    Serial.println("Laboratorio Lleno");
+    display.setTextSize(1);     
+    printDisplay("Lab. Lleno");
+    delay(1000);
+  }
+
   scanner.startScan();
   return linea;
 }
@@ -182,15 +201,12 @@ void setup() {
   display.display(); // Show the display buffer on the screen
   delay(2000);        // Pause for 2 seconds
 
-//  testdrawstyles();    // Draw 'stylized' characters
-
-
   Serial.print("chipId: "); //Identifico el ESP8266
   chipid = String(ESP.getChipId());
   Serial.println(chipid); 
   
 //-----COMPRUEBO EL CORRECTO FUNCIONAMIENTO DEL DE2120--------------
-  Serial.println("Preparando DE2120 Scanner...");
+  Serial.print("Preparando DE2120 Scanner...");
 
   if (scanner.begin(softSerial) == false)
   {
@@ -198,7 +214,7 @@ void setup() {
     while (1)
       ;
   }
-  Serial.println("Scanner online!");
+  Serial.println("ONLINE!");
   
 
 //------------------END---------------------------
@@ -240,6 +256,7 @@ void setup() {
 void loop() {
   
   if(j++ == 0){
+    scanner.startScan();
     Serial.println("PREPARADO!");
     printDisplay("PREPARADO!");
   }
@@ -251,10 +268,15 @@ void loop() {
       Serial.print(scanBuffer[i+3]);
       matricula[i] = scanBuffer[(i+3)];
     }
-      
+    
     Serial.println();
     enviardatos("chipid=" + chipid + "&id_laboratory=" + id_laboratory + "&matricula=" + matricula);
+    
     printMatricula(matricula);
+    
+    display.clearDisplay();
+    display.drawBitmap(0, 0, image, LOGO_WIDTH, LOGO_HEIGHT, WHITE);
+    display.display(); // Show the display buffer on the screen
   }
 
   delay(500);
@@ -277,7 +299,7 @@ String printMatricula(String matricula){
   display.setCursor(0,20);             // Start at top-left corner
   display.println((matricula));
   display.display();
-  delay(2000);
+  delay(1000);
 }
 
 void printDisplay(String text){
@@ -288,5 +310,5 @@ void printDisplay(String text){
   display.setCursor(0,20);             // Start at top-left corner
   display.print(text);
   display.display();
-  delay(2000);
+  delay(1000);
 }
