@@ -116,7 +116,7 @@ unsigned long previousMillis = 0;
 char host[48];
 //String strhost = "192.168.100.21";
 //String strhost = "10.30.54.90";
-String strhost = "172.20.10.41";
+String strhost = "172.20.10.4";
 String strurl = "/cimalab/models/esp8266_connection.php";
 String chipid = "";
 //----------------VARIABLES LABORATORIO--------------------------
